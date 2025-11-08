@@ -24,6 +24,9 @@ def main():
     ftp_user = os.getenv('FTP_USER')
     ftp_password = os.getenv('FTP_PASSWORD')
 
+    # Game server configuration
+    game_port = int(os.getenv('PZ_GAME_PORT', 27325))
+
     # Validate configuration
     if not discord_token:
         print("ERROR: DISCORD_BOT_TOKEN not set in .env file")
@@ -48,7 +51,8 @@ def main():
         ftp_host=ftp_host,
         ftp_port=ftp_port,
         ftp_user=ftp_user,
-        ftp_password=ftp_password
+        ftp_password=ftp_password,
+        game_port=game_port
     )
 
     try:

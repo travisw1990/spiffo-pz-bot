@@ -25,6 +25,7 @@ class PZDiscordBot(commands.Bot):
                  ftp_port: int,
                  ftp_user: str,
                  ftp_password: str,
+                 game_port: int = 27325,
                  command_prefix: str = "!pz"):
 
         # Set up intents
@@ -36,7 +37,7 @@ class PZDiscordBot(commands.Bot):
 
         # Initialize components
         self.claude_agent = ClaudeAgent(claude_api_key)
-        self.server_controller = PZServerController(ftp_host, ftp_port, ftp_user, ftp_password)
+        self.server_controller = PZServerController(ftp_host, ftp_port, ftp_user, ftp_password, game_port)
 
         # Initialize knowledge base
         print("Initializing knowledge base...")

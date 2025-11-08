@@ -8,6 +8,9 @@ services:
     container_name: spiffo-pz-bot
     restart: unless-stopped
 
+    # Use host networking for full network access
+    network_mode: host
+
     # Environment variables from .env file
     env_file:
       - .env
