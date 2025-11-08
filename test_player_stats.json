@@ -1,0 +1,36 @@
+{
+  "TestPlayer1": {
+    "connections": 0,
+    "disconnections": 0,
+    "zombies_killed": 3,
+    "deaths": 0,
+    "death_causes": [],
+    "distance_traveled": 0,
+    "level_ups": [],
+    "items_crafted": [
+      "item"
+    ],
+    "vehicles_entered": 0,
+    "buildings_placed": [
+      "building"
+    ],
+    "first_seen": "2025-01-07T10:05:00",
+    "last_seen": "2025-01-07T10:35:00",
+    "session_times": []
+  },
+  "TestPlayer2": {
+    "connections": 0,
+    "disconnections": 0,
+    "zombies_killed": 1,
+    "deaths": 0,
+    "death_causes": [],
+    "distance_traveled": 0,
+    "level_ups": [],
+    "items_crafted": [],
+    "vehicles_entered": 0,
+    "buildings_placed": [],
+    "first_seen": "2025-01-07T10:25:00",
+    "last_seen": "2025-01-07T10:25:00",
+    "session_times": []
+  }
+}

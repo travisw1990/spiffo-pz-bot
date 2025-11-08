@@ -1,0 +1,104 @@
+{
+  "articles": [
+    {
+      "title": "Zombie Mechanics",
+      "category": "Core Gameplay",
+      "content": "Zombies in Project Zomboid are the primary threat. They are attracted to sound, movement, and light. Zombies can see through windows and will break down doors if they detect you. They move slowly but are relentless. A single scratch has a 7% chance of infection, lacerations have 25% chance, and bites are 100% fatal. The Knox Infection is incurable once contracted. Zombies are weaker alone but deadly in groups. They can be distracted by noise (car alarms, radios, TVs). Stealth is often better than combat."
+    },
+    {
+      "title": "First Day Survival Guide",
+      "category": "Early Game",
+      "content": "Your first 24 hours are critical. Start by finding a defendable house, preferably two-story with stairs you can destroy. Gather food, water, and basic weapons (frying pans, baseball bats). Board up windows on ground floor. Fill bathtubs and sinks with water before the water shuts off (usually day 0-14). Collect canned food, perishables will rot. Find a backpack to increase carrying capacity. Avoid fighting large groups. Shut off house alarms before breaking in. Keep curtains closed and avoid using lights at night."
+    },
+    {
+      "title": "Skills and Leveling",
+      "category": "Character Development",
+      "content": "Project Zomboid has numerous skills that level through use. Carpentry is essential for base building, levels by crafting wooden items. Cooking prevents food poisoning and allows advanced recipes. Electrical allows generators and hot-wiring cars. Mechanics needed for vehicle maintenance. Fitness and Strength affect combat and carrying capacity but are very slow to level. Foraging and Fishing provide renewable food sources. First Aid improves healing effectiveness. Combat skills (axe, long blunt, short blunt, spear) improve accuracy and speed."
+    },
+    {
+      "title": "Farming Guide",
+      "category": "Survival",
+      "content": "Farming provides renewable food. Requirements: seeds, water, tilled soil, time. Use a trowel or shovel to dig furrows. Plant seeds in furrows. Water daily using a watering can (refillable from rain barrels). Crops take 60-100 in-game hours to grow depending on type. Cabbages, carrots, potatoes, and tomatoes are best for calories. Farming skill increases yield. Crops can die from lack of water or disease. Fertilizer improves growth. Build rain collectors for sustainable water supply."
+    },
+    {
+      "title": "Combat Fundamentals",
+      "category": "Combat",
+      "content": "Combat is dangerous and should be avoided when possible. Best early weapons: crowbar (never breaks), baseball bat, frying pan. Push zombies (spacebar) to create distance, costs stamina. Time your swings to hit when zombies are close. Back away after attacking. Never fight more than 2-3 zombies at once early game. Stamina management is critical - low stamina means slow swings and movement. Spears are safe but fragile. Axes do massive damage but slow. Firearms attract massive hordes with noise."
+    },
+    {
+      "title": "Essential Crafting Recipes",
+      "category": "Crafting",
+      "content": "Key recipes to know: Ripped Sheets (from clothing) for bandages. Sheet + Plank + Nail = Sheet Rope for escaping upstairs. Planks + Nails = Wooden Barricades. Stone Hammer (stone + tree branch) is early tool. Spear (hunting knife + plank) is safe weapon. Rain Collector Barrel (plank + barrel) for water. Campfire (stone) for cooking without power. Sandbags for strong barricades. Most recipes require tools and skill levels."
+    },
+    {
+      "title": "Sandbox Settings Explained",
+      "category": "Server Settings",
+      "content": "Zombie Population controls density (low to insane). Zombie Respawn determines if zombies come back. Speed options: Shamblers (slow), Fast Shamblers (jogging), or Sprinters (running). Strength affects health and damage. Cognition affects door/window interaction. Memory affects how long they remember seeing you. Sight and Hearing adjust detection ranges. Loot Abundance affects item spawn rates. Infection Mortality controls death speed from Knox. Water/Power shutoff dates can be customized."
+    },
+    {
+      "title": "Multiplayer Server Basics",
+      "category": "Multiplayer",
+      "content": "Project Zomboid multiplayer supports cooperative survival. Server settings in servertest.ini and sandbox vars. Players can share bases, items, and resources. PVP can be enabled or disabled. Safehouse system lets players claim areas. Admin commands available for management. Server performance affected by zombie count and player count. Regular backups recommended. Mods must match between server and clients. Voice chat available through VOIP. Death options include respawn, zombie or permanent death."
+    },
+    {
+      "title": "Moodles System",
+      "category": "Character Status",
+      "content": "Moodles are status indicators showing your character's condition. Hunger increases over time, eat to reduce. Thirst increases faster, drink regularly. Tired means you need sleep (8 hours). Panic reduces accuracy and vision, goes away when safe. Stress from various sources, reduced by reading/smoking. Pain from injuries, take painkillers. Injured affects all actions. Sick from bad food/infection. Unhappy from various sources. Bored from repetitive actions. Each moodle has severity levels affecting your performance."
+    },
+    {
+      "title": "Vehicles and Mechanics",
+      "category": "Transportation",
+      "content": "Vehicles require keys or Electrical skill 1 + Mechanics skill 2 to hotwire. Gas is finite and doesn't respawn. Vehicles need maintenance: parts wear down. Engine, battery, tires, brakes, suspension all degrade. Mechanics skill required for repairs. Parts found in other cars or storage. Hitting zombies damages vehicle and makes noise. Useful for looting distant areas and hauling goods. Car alarms attract massive hordes. Keep a gas can for refueling. Advanced mechanics allows vehicle building."
+    },
+    {
+      "title": "Water and Electricity",
+      "category": "Utilities",
+      "content": "Water shuts off between day 0-30 (random, sandbox setting). Fill every container before shutoff. Rain collector barrels provide infinite water. Water purification: boil water or use water purification tablets. Electricity shuts off between day 0-30. Generators provide power but need gas and maintenance. Generators are loud and attract zombies. Solar panels in some mods. Electrical skill needed for generator setup. Refrigerators stop working without power. Plan food preservation accordingly."
+    },
+    {
+      "title": "Food Preservation and Cooking",
+      "category": "Survival",
+      "content": "Fresh food rots quickly without power. Canned food never expires. Cooking skill prevents food poisoning from raw food. Cooking also reduces food sickness chance. Smoking, salting, and canning preserve food long-term. Requires specific recipes and skill levels. Farming provides renewable vegetables. Fishing and trapping provide renewable meat. Foraging gives berries and mushrooms (be careful of poison). Stews and soups stretch food supplies. Always check food freshness before eating."
+    },
+    {
+      "title": "Base Building Strategy",
+      "category": "Base Building",
+      "content": "Good bases have: second floor access, destroyable stairs, water source nearby, multiple exits. Carpentry skill essential for building. Plank walls stronger than log walls. Doors are weak points - add multiple doors or barricades. Windows need sheet ropes for emergency exit. Build rain collectors on roof. Storage options: crates, boxes, wardrobes. Farming plots need outdoor space. Generator placement matters for noise. Multiple safehouses recommended. Don't build near spawn points."
+    },
+    {
+      "title": "Injuries and First Aid",
+      "category": "Medical",
+      "content": "Injury types: scratches, lacerations, deep wounds, fractures, burns, bites. Bandage all wounds to prevent infection (non-zombie). Disinfect with bourbon, whiskey, or disinfectant. Change bandages when dirty. Fractures require splints and time. Pain slows you down, use painkillers. First Aid skill improves healing and reduces bandage usage. Sleep accelerates healing. Bitten by zombie is 100% fatal, no cure. Antibiotics help with normal infections, not Knox. Keep medical supplies stocked."
+    },
+    {
+      "title": "Traits and Occupation Guide",
+      "category": "Character Creation",
+      "content": "Occupations give starting skills and some are more valuable than others. Carpenter gives carpentry boost (essential). Fire Officer gives axe and fitness skills. Unemployed gives extra trait points. Positive traits: Fast Learner, Cat's Eyes, Thick Skinned, Brave, Lucky, Athletic, Strong, Organized. Negative traits for points: Slow Reader, Clumsy, Overweight, Short Sighted. Very bad: Prone to Illness, Slow Healer, Hemophobic, Agoraphobic. Plan builds around your playstyle."
+    },
+    {
+      "title": "Looting Priorities and Locations",
+      "category": "Looting",
+      "content": "Priority items: backpack, weapons, food, water containers, tools (hammer, saw, screwdriver), nails, planks, sheets. Best locations: warehouses for supplies, hardware stores for tools, grocery stores for food (picked clean fast), bars for alcohol, medical facilities for first aid. Police and military locations have guns but are dangerous. Residential houses for misc items. Gas stations for gas cans. Schools for books. Farm buildings for seeds and tools. Libraries for skill books."
+    },
+    {
+      "title": "Skill Books and Learning",
+      "category": "Learning",
+      "content": "Skill books boost XP gain for specific skills. Each skill has 5 book levels (Beginner to Master). Reading requires right conditions: not tired, good light, sitting. Books give multipliers to skill XP. VHS tapes teach recipes and give XP multipliers. Magazines give one-time XP boost. Newspapers for reading skill practice. Fast Reader trait speeds reading. Slow Reader slows it. Read skill books before grinding that skill for efficiency."
+    },
+    {
+      "title": "Noise and Stealth Mechanics",
+      "category": "Stealth",
+      "content": "Sound attracts zombies from large distances. Loud noises: gunshots (huge range), car crashes, car alarms, breaking glass, running, chopping trees. Moderate: walking, fighting, crafting. Silent: sneaking (CTRL), slow walking. Lightfooted trait reduces noise. Sneaking skill reduces noise over time. Shoes affect noise (bare feet quietest). Use noise to lead zombies away. TVs and radios create distraction. Generators are extremely loud. Plan noisy activities accordingly."
+    },
+    {
+      "title": "Weather and Seasons",
+      "category": "Environment",
+      "content": "Project Zomboid has seasonal weather affecting gameplay. Temperature affects food spoilage and character comfort. Winter brings freezing temperatures requiring warm clothing. Rain fills rain collectors but reduces visibility. Fog obscures vision greatly. Storms can be dangerous. Cold slows movement and drains health. Overheating in summer equally dangerous. Layer clothing for temperature management. Weather affects farming growth rates. Plan seasonal transitions."
+    },
+    {
+      "title": "Death and Respawn",
+      "category": "Game Mechanics",
+      "content": "Death is permanent in standard mode. Respawn settings customizable in sandbox/multiplayer. Character can respawn in same world or start fresh. Zombified players become zombies in multiplayer. Death from: zombie infection (inevitable), injuries, starvation, dehydration, hypothermia. Safehouse items persist after death. New character can recover old base if remembered. Play carefully, death erases progress. Backup saves recommended for learning."
+    }
+  ]
+}

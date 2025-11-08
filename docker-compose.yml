@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+  spiffo-bot:
+    build: .
+    # For production, pull from GitHub Container Registry instead:
+    # image: ghcr.io/travisw1990/spiffo-pz-bot:latest
+    container_name: spiffo-pz-bot
+    restart: unless-stopped
+
+    # Environment variables from .env file
+    env_file:
+      - .env
+
+    # Persist data between container restarts
+    volumes:
+      - ./knowledge_base:/app/knowledge_base
+      - ./player_stats.json:/app/player_stats.json
+      - ./logs:/app/logs
+
+    # Logging configuration
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"

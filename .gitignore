@@ -1,0 +1,47 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+
+# Virtual Environment
+venv/
+env/
+ENV/
+
+# Environment Variables (NEVER commit credentials!)
+.env
+CLAUDE.md
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/
+
+# Test files
+test_*.py
+explore_*.py
+check_*.py
+analyze_*.py
+debug_*.py
+build_*.py
+
+# Backup files
+*.bak
+*.backup
+
+# Knowledge base data (will be built on first run)
+knowledge_base/
+
+# Player statistics (generated at runtime)
+player_stats.json
