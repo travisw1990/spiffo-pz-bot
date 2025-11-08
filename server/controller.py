@@ -36,70 +36,69 @@ class PZServerController:
             return False
 
     def is_server_online(self) -> Tuple[bool, str]:
-        """Check if server is online by examining game port, logs, and content"""
+        """Check if server is online by examining logs and activity (PZ uses UDP, can't check TCP port)"""
         try:
-            # First, try to connect to the game port (most reliable method)
-            port_open = self._check_game_port()
-
             with self.ftp_client:
                 # Check console log modification time
                 mod_time = self.ftp_client.get_file_modified_time(self.CONSOLE_LOG)
 
                 if not mod_time:
-                    # Can't read logs, rely on port check
-                    if port_open:
-                        return True, "Server online (game port accessible, but couldn't read logs)"
-                    else:
-                        return False, "Could not read server console log and game port is closed"
+                    return False, "Could not read server console log"
 
                 # Calculate time difference (use total_seconds for accuracy)
                 time_diff = datetime.utcnow() - mod_time
                 total_minutes = time_diff.total_seconds() / 60
                 total_hours = total_minutes / 60
 
-                # If port is open, server is definitely online
-                if port_open:
-                    if total_minutes < 60:
-                        time_str = f"{int(total_minutes)} minutes ago"
-                    else:
-                        time_str = f"{total_hours:.1f} hours ago"
-                    return True, f"Server online (game port accessible, last log update: {time_str})"
-
-                # Port is closed, check logs for recent activity
-                # Read last 30 lines to check for server status indicators
-                lines = self.ftp_client.read_file_tail(self.CONSOLE_LOG, 30)
+                # Read last 50 lines to check for server status indicators
+                lines = self.ftp_client.read_file_tail(self.CONSOLE_LOG, 50)
 
                 if lines:
                     log_content = '\n'.join(lines)
 
                     # Check for explicit shutdown messages
                     if "SERVER STOPPING" in log_content or "SERVER STOPPED" in log_content:
-                        return False, f"Server is stopped (shutdown message in logs, game port closed)"
+                        return False, f"Server is stopped (shutdown message in recent logs)"
 
                     # Look for signs of active server (Steam network activity, player activity, etc.)
                     active_indicators = [
                         "OnSteamServersConnected",
                         "VAC Secure",
                         "Public IP:",
-                        "player",
+                        "player connected",
+                        "player disconnected",
                         "saved",
-                        "loaded"
+                        "loaded",
+                        "ZombiePopulationRenderer"
                     ]
 
                     has_activity = any(indicator in log_content for indicator in active_indicators)
 
-                    # If log was modified recently (within 1 hour), might be starting up
-                    if total_minutes < 60:
-                        if has_activity:
-                            return False, f"Server appears to be offline (game port closed, but had activity {int(total_minutes)} minutes ago - may be restarting)"
+                    # If log was modified recently (within 60 minutes) AND has activity, server is likely online
+                    if total_minutes < 60 and has_activity:
+                        if total_minutes < 5:
+                            time_str = "just now"
+                        elif total_minutes < 60:
+                            time_str = f"{int(total_minutes)} minutes ago"
                         else:
-                            return False, f"Server offline (game port closed, log updated {int(total_minutes)} minutes ago)"
+                            time_str = f"{total_hours:.1f} hours ago"
+                        return True, f"Server online (active log entries, last update: {time_str})"
 
-                    # Log hasn't been updated recently and port is closed
-                    return False, f"Server offline (game port closed, no log activity in {total_hours:.1f} hours)"
+                    # Check for Steam heartbeat (happens every ~30 min on idle servers)
+                    if "OnSteamServersConnected" in log_content and total_minutes < 35:
+                        return True, f"Server online (Steam heartbeat detected {int(total_minutes)} minutes ago)"
+
+                    # No recent activity
+                    if total_hours < 2:
+                        return False, f"Server status uncertain (no activity in {total_hours:.1f} hours, may be idle or offline)"
+                    else:
+                        return False, f"Server appears offline (no log activity in {total_hours:.1f} hours)"
                 else:
-                    # Couldn't read logs and port is closed
-                    return False, f"Server offline (game port closed, log not updated in {total_hours:.1f} hours)"
+                    # Couldn't read logs
+                    if total_minutes < 120:
+                        return False, f"Server status uncertain (couldn't read logs, last modified {int(total_minutes)} minutes ago)"
+                    else:
+                        return False, f"Server appears offline (no log updates in {total_hours:.1f} hours)"
 
         except Exception as e:
             return False, f"Error checking server status: {e}"
