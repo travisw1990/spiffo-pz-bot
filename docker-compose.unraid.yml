@@ -1,0 +1,36 @@
+version: '3.8'
+
+services:
+  spiffo-bot:
+    # Pull pre-built image from GitHub Container Registry
+    image: ghcr.io/travisw1990/spiffo-pz-bot:latest
+    container_name: spiffo-pz-bot
+    restart: unless-stopped
+
+    # Environment variables from .env file
+    env_file:
+      - .env
+
+    # Persist data on Unraid array
+    volumes:
+      # Knowledge base (built on first run)
+      - /mnt/user/appdata/spiffo-bot/knowledge_base:/app/knowledge_base
+      # Player statistics
+      - /mnt/user/appdata/spiffo-bot/player_stats.json:/app/player_stats.json
+      # Bot logs
+      - /mnt/user/appdata/spiffo-bot/logs:/app/logs
+
+    # Logging configuration
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+    # Health check (optional but recommended)
+    healthcheck:
+      test: ["CMD-SHELL", "pgrep -f python || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
