@@ -65,8 +65,9 @@ class PZServerController:
                         "OnSteamServersConnected",
                         "VAC Secure",
                         "Public IP:",
-                        "player connected",
-                        "player disconnected",
+                        "player-connect",
+                        "trying to connect",
+                        "fully-connected",
                         "saved",
                         "loaded",
                         "ZombiePopulationRenderer"
