@@ -382,6 +382,10 @@ class PZDiscordBot(commands.Bot):
         """Send a message, splitting it if it exceeds Discord's limit"""
         MAX_LENGTH = 2000
 
+        # Check for empty content and provide fallback
+        if not content or content.strip() == "":
+            content = "I encountered an error processing that request. Please try again."
+
         if len(content) <= MAX_LENGTH:
             await channel.send(content)
         else:
