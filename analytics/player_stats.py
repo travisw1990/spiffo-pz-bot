@@ -36,19 +36,34 @@ class PlayerStatsTracker:
         # Convert datetime objects to strings for JSON serialization
         stats_copy = {}
         for username, data in self.stats.items():
-            stats_copy[username] = data.copy()
-            if 'first_seen' in stats_copy[username] and stats_copy[username]['first_seen']:
-                if isinstance(stats_copy[username]['first_seen'], datetime):
-                    stats_copy[username]['first_seen'] = stats_copy[username]['first_seen'].isoformat()
-            if 'last_seen' in stats_copy[username] and stats_copy[username]['last_seen']:
-                if isinstance(stats_copy[username]['last_seen'], datetime):
-                    stats_copy[username]['last_seen'] = stats_copy[username]['last_seen'].isoformat()
-
-            # Convert level_up timestamps
-            if 'level_ups' in stats_copy[username]:
-                for level_up in stats_copy[username]['level_ups']:
-                    if 'timestamp' in level_up and isinstance(level_up['timestamp'], datetime):
-                        level_up['timestamp'] = level_up['timestamp'].isoformat()
+            stats_copy[username] = {}
+            for key, value in data.items():
+                # Handle datetime objects
+                if isinstance(value, datetime):
+                    stats_copy[username][key] = value.isoformat()
+                # Handle lists of datetime objects
+                elif key == 'death_timestamps' and isinstance(value, list):
+                    stats_copy[username][key] = [dt.isoformat() if isinstance(dt, datetime) else dt for dt in value]
+                # Handle level_ups with timestamps
+                elif key == 'level_ups' and isinstance(value, list):
+                    stats_copy[username][key] = []
+                    for level_up in value:
+                        lu_copy = level_up.copy()
+                        if 'timestamp' in lu_copy and isinstance(lu_copy['timestamp'], datetime):
+                            lu_copy['timestamp'] = lu_copy['timestamp'].isoformat()
+                        stats_copy[username][key].append(lu_copy)
+                # Handle lives with start/end timestamps
+                elif key == 'lives' and isinstance(value, list):
+                    stats_copy[username][key] = []
+                    for life in value:
+                        life_copy = life.copy()
+                        if 'start' in life_copy and isinstance(life_copy['start'], datetime):
+                            life_copy['start'] = life_copy['start'].isoformat()
+                        if 'end' in life_copy and isinstance(life_copy['end'], datetime):
+                            life_copy['end'] = life_copy['end'].isoformat()
+                        stats_copy[username][key].append(life_copy)
+                else:
+                    stats_copy[username][key] = value
 
         with open(self.stats_file, 'w') as f:
             json.dump(stats_copy, f, indent=2)

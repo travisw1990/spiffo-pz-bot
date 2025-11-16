@@ -9,17 +9,23 @@ from collections import defaultdict
 class LogParser:
     """Parse Project Zomboid server logs to extract player statistics"""
 
-    # Log patterns for different events
+    # Log patterns for different events (Indifferent Broccoli format)
+    # Format: LOG  : Type, epoch> epoch> [YY-MM-DD HH:MM:SS.mmm] > message
     PATTERNS = {
-        'player_connect': r'\[(?P<timestamp>[\d\-: ]+)\]\s+user connected from (?P<ip>[\d\.]+): (?P<username>\w+)',
-        'player_disconnect': r'\[(?P<timestamp>[\d\-: ]+)\]\s+(?P<username>\w+) disconnected',
-        'zombie_killed': r'\[(?P<timestamp>[\d\-: ]+)\]\s+(?P<username>\w+) killed a zombie',
-        'player_death': r'\[(?P<timestamp>[\d\-: ]+)\]\s+(?P<username>\w+) died',
-        'distance_traveled': r'\[(?P<timestamp>[\d\-: ]+)\]\s+(?P<username>\w+) traveled (?P<distance>\d+) tiles',
-        'level_up': r'\[(?P<timestamp>[\d\-: ]+)\]\s+(?P<username>\w+) reached level (?P<level>\d+) in (?P<skill>\w+)',
-        'item_crafted': r'\[(?P<timestamp>[\d\-: ]+)\]\s+(?P<username>\w+) crafted (?P<item>[\w\s]+)',
-        'vehicle_entered': r'\[(?P<timestamp>[\d\-: ]+)\]\s+(?P<username>\w+) entered vehicle',
-        'building_placed': r'\[(?P<timestamp>[\d\-: ]+)\]\s+(?P<username>\w+) placed (?P<building>[\w\s]+)',
+        # Player connected: look for "fully-connected" event with username
+        'player_connect': r'\[(?P<timestamp>[\d\-: \.]+)\].*?ConnectionManager:\s+\[fully-connected\].*?username="(?P<username>[^"]+)"',
+
+        # Player disconnected: "Disconnected player "Name" steamid" (timestamp optional)
+        'player_disconnect': r'Disconnected player "(?P<username>[^"]+)"',
+
+        # Zombie killed - these may not be in logs, patterns kept for future
+        'zombie_killed': r'\[(?P<timestamp>[\d\-: \.]+)\].*?(?P<username>\w+) killed a zombie',
+        'player_death': r'\[(?P<timestamp>[\d\-: \.]+)\].*?(?P<username>\w+) died',
+        'distance_traveled': r'\[(?P<timestamp>[\d\-: \.]+)\].*?(?P<username>\w+) traveled (?P<distance>\d+) tiles',
+        'level_up': r'\[(?P<timestamp>[\d\-: \.]+)\].*?(?P<username>\w+) reached level (?P<level>\d+) in (?P<skill>\w+)',
+        'item_crafted': r'\[(?P<timestamp>[\d\-: \.]+)\].*?(?P<username>\w+) crafted (?P<item>[\w\s]+)',
+        'vehicle_entered': r'\[(?P<timestamp>[\d\-: \.]+)\].*?(?P<username>\w+) entered vehicle',
+        'building_placed': r'\[(?P<timestamp>[\d\-: \.]+)\].*?(?P<username>\w+) placed (?P<building>[\w\s]+)',
     }
 
     def __init__(self):
@@ -89,11 +95,20 @@ class LogParser:
                     if not username:
                         continue
 
-                    # Parse timestamp
-                    try:
-                        timestamp = datetime.strptime(timestamp_str, '%Y-%m-%d %H:%M:%S')
-                    except:
-                        timestamp = None
+                    # Parse timestamp - try multiple formats
+                    timestamp = None
+                    if timestamp_str:
+                        # Try DD-MM-YY HH:MM:SS.mmm format (Indifferent Broccoli)
+                        try:
+                            # Format: 15-11-25 21:50:40.485 (DD-MM-YY HH:MM:SS.mmm)
+                            # Remove milliseconds and parse
+                            timestamp = datetime.strptime(timestamp_str.split('.')[0], '%d-%m-%y %H:%M:%S')
+                        except:
+                            # Try YYYY-MM-DD HH:MM:SS format (standard)
+                            try:
+                                timestamp = datetime.strptime(timestamp_str, '%Y-%m-%d %H:%M:%S')
+                            except:
+                                timestamp = None
 
                     # Update first/last seen
                     if timestamp:

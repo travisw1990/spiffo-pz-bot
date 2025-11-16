@@ -89,9 +89,13 @@ class PZServerController:
                     if "OnSteamServersConnected" in log_content and total_minutes < 35:
                         return True, f"Server online (Steam heartbeat detected {int(total_minutes)} minutes ago)"
 
-                    # No recent activity
-                    if total_hours < 2:
-                        return False, f"Server status uncertain (no activity in {total_hours:.1f} hours, may be idle or offline)"
+                    # Check for recent player disconnect (server running but idle)
+                    if "Disconnected player" in log_content and total_hours < 12:
+                        return True, f"Server online but idle (player disconnected {total_hours:.1f} hours ago, no activity since)"
+
+                    # No recent activity - possibly offline
+                    if total_hours < 24:
+                        return True, f"Server status uncertain (no activity in {total_hours:.1f} hours, likely idle)"
                     else:
                         return False, f"Server appears offline (no log activity in {total_hours:.1f} hours)"
                 else:
